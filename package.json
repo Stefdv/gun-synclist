@@ -1,0 +1,23 @@
+{
+  "name": "gun-synclist",
+  "version": "1.0.0",
+  "description": "Gun module",
+  "main": "gun-synclist.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Stefdv/gun-synclist.git"
+  },
+  "keywords": [
+    "Gun",
+    "module"
+  ],
+  "author": "Stefdv",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Stefdv/gun-synclist/issues"
+  },
+  "homepage": "https://github.com/Stefdv/gun-synclist#readme"
+}
