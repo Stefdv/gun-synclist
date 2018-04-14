@@ -30,8 +30,13 @@
     opt.list = opt.list || [];              // Array build from opt.doc
     opt.lookup = opt.lookup || {};          // lookup soul/index in opt.list
     opt.owner = opt.owner || null;          // soul of the node the change happened on
-    
-    this.on(function(data, key, ctx){
+    opt.ev = opt.ev || {off: function(){
+      Gun.obj.map(opt.ev.s, function(e){
+        if(e){ e.off() }
+      });
+      opt.ev.s = {};
+    }, s:{}}
+    this.on(function(data, key, ctx,ev){
       delete ((data = Gun.obj.copy(data))||{})._;
         if(this.back(1)._.get) {
           opt.root = this.back(1)._.get;
@@ -50,6 +55,10 @@
                   return opt.doc[soul]
               });
               opt.any.call(opt.at.gun,{list:list,lookup:opt.lookup});
+              if(opt.off){
+                opt.ev.off();
+                opt.any = null;
+              }
             } else {
               opt.any.call(opt.at.gun,{soul:opt.owner,
                                       idx:opt.lookup[opt.owner],
@@ -57,10 +66,12 @@
                           );
             } 
             opt.init = false;
+            
           }, opt.wait || 1);
       
           opt.at = opt.at || ctx;
           opt.key = opt.key || key;
+          opt.ev.s[this._.id] = ev;
           var tmp = this, id,idx;
           Gun.obj.map(data, function(val, key){
             id = Gun.val.rel.is(val);
@@ -76,5 +87,11 @@
             tmp.get(key).synclist(opt.any, opt, opt.ids[id]);
           });
         },true)
+      };
+      
+      Gun.chain.listonce = function(cb, opt, at){
+        (opt = opt || {}).off = !0;
+        return this.synclist(cb, opt, at);
       }
+      
     }());
