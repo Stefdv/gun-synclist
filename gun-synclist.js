@@ -54,7 +54,7 @@
                   opt.doc[soul]._soul = soul;
                   return opt.doc[soul]
               });
-              let lookup = Gun.obj.copy(lookup)
+              let lookup = Gun.obj.copy(opt.lookup)
               opt.any.call(opt.at.gun,{list:list,lookup:lookup});
               if(opt.off){
                 opt.ev.off();
