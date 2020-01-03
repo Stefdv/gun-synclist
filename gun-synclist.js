@@ -51,7 +51,9 @@
             if(opt.init) {
               let list =Object.keys(opt.doc).map( (soul,idx) => {
                   opt.lookup[soul] = idx;
-                  opt.doc[soul]._soul = soul;
+                  if(opt.doc[soul]) {
+                    opt.doc[soul]._soul = soul;
+                  }
                   return opt.doc[soul]
               });
               let lookup = Gun.obj.copy(opt.lookup)
